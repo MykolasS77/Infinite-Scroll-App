@@ -43,6 +43,8 @@ header{
     position: fixed;
     z-index: 1000;
     margin:auto;
+    overflow: auto;
+    max-height: 90vh
   
 }
 

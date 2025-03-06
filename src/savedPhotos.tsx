@@ -1,6 +1,7 @@
 import "./App.css"
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {SavedPhotosContext} from "./Context"
+import ImageComponent from "./imageComponent";
 
 
 export default function SavedPhotos() {
@@ -9,18 +10,18 @@ export default function SavedPhotos() {
     const show = context.showSaved
     const setShow = context.setShowSaved
     
-    const display = context.setShowPicture
+    
     let lightBoxRef = useRef(null)
 
-    console.log(show)
-   
-        const listItems = savedPhotos.map((item) => {
-    
-            return <img src={item}></img>
-        });
+    console.log(savedPhotos)
 
-        console.log(listItems)
-    
+    const listItems = savedPhotos.map((item) => {
+        
+        return (
+        <ImageComponent type="saved" src={item}></ImageComponent>
+    )
+    });
+
 
     useEffect(() => {
 
@@ -36,15 +37,16 @@ export default function SavedPhotos() {
             
     }, [])
    
-    if (show === true && savedPhotos.length != 0){
+    if(show === true){
         return(
             <div className="container lightbox" ref={lightBoxRef}>
-            <div className="savedPhotos">
-            {listItems}
-            </div>
+                <div className="savedPhotos">
+                {listItems}
+                </div>
             </div>
         )
     }
+    
     
 
     

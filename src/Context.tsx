@@ -30,7 +30,9 @@ const SavedPhotosContext = createContext<SavedPhotosContextType>(
 
 const SavedPhotosContextProvider = (props: { children: React.ReactNode }) => {
 
-    const [savedPhotos, setSavedPhotos] = useState<string[]>([]);
+
+    const data = JSON.parse(window.localStorage.getItem("saved_photos") || "[]")
+    const [savedPhotos, setSavedPhotos] = useState<string[]>(data);
     const [pictureURL, setPictureURL] = useState("empty")
     const [showPicture, setShowPicture] = useState(false)
     const [showSaved, setShowSaved] = useState(false)

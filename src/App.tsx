@@ -52,13 +52,7 @@ export default function App() {
           })
              
       };
-    
     });
-
-
-
-
-
     
   }, [pageNumber]);
   
@@ -69,15 +63,12 @@ export default function App() {
       <ImageComponent
       key={item.id} 
       id={item.id}
-      src={item.src}
-      avg_color={item.avg_color}
+      src={item.src.large}
       isLoading={false}
       />
       
     )
     });
-
-   
 
     return (
       <SavedPhotosContextProvider>

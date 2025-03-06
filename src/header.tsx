@@ -13,6 +13,8 @@ export default function Header(){
         if(length !=0 ){
         setShow((prevState) => !prevState)
         }
+
+        console.log(show, "from header")
     }
     
     return(
