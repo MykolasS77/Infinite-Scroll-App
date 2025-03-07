@@ -1,6 +1,6 @@
 import "./App.css"
 import { useContext } from "react"
-import {SavedPhotosContext} from "./Context"
+import {SavedPhotosContext} from "./imageContext"
 
 export default function Header(){
 

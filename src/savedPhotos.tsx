@@ -1,19 +1,16 @@
 import "./App.css"
-import { useContext, useEffect, useRef, useState } from "react";
-import {SavedPhotosContext} from "./Context"
+import { useContext, useEffect, useRef} from "react";
+import {SavedPhotosContext} from "./imageContext"
 import ImageComponent from "./imageComponent";
 
 
 export default function SavedPhotos() {
+
     const context = useContext(SavedPhotosContext)
     const savedPhotos = context.savedPhotos
     const show = context.showSaved
     const setShow = context.setShowSaved
-    
-    
     let lightBoxRef = useRef(null)
-
-    console.log(savedPhotos)
 
     const listItems = savedPhotos.map((item) => {
         
@@ -22,18 +19,21 @@ export default function SavedPhotos() {
     )
     });
 
-
     useEffect(() => {
 
-        let handler = (event: any) => {
-            console.log("click")
-            
+        let handler = (event: MouseEvent) => {
+                      
             if (lightBoxRef.current === event.target) {
+                
                 setShow(false)
             }
         }
         
         document.addEventListener("mousedown", handler)
+        
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        };
             
     }, [])
    
@@ -46,8 +46,5 @@ export default function SavedPhotos() {
             </div>
         )
     }
-    
-    
-
     
 }
