@@ -35,7 +35,6 @@ export default function imageComponent(props: any){
     const savePhoto = () => {
 
         if(items.length === 0) {
-           console.log(props.src)
             setItems([props.src])
             
           }
@@ -48,9 +47,14 @@ export default function imageComponent(props: any){
         
     }
 
-    const displayPhoto = () => {
+    const displayPhoto = (event: React.MouseEvent) => {
 
-        console.log(props.type)
+        const type = event.target as HTMLElement
+
+        if (type.tagName.toLowerCase() === "button") {
+            return; 
+        }
+        
         leaveHandler()
         
         if(props.type === "saved"){
@@ -76,8 +80,16 @@ export default function imageComponent(props: any){
         return(
             <div className={blur} onMouseEnter={hooverHandler} onMouseLeave={leaveHandler} >
                 
-            {blur === "hoover" ? <button onClick={deletePhoto}>Delete</button> : null} 
-            <img key={props.id} src={props.src.large} height={"300px"} loading="lazy" onClick={displayPhoto}/>
+                
+            {blur === "hoover" ? 
+            <div onClick={displayPhoto}>  
+                <div className="authorNameContainer" >
+                    <button onClick={deletePhoto}>Delete</button>      
+                </div>  
+            </div>
+            : null
+        } 
+            <img className={loading} src={props.src.large} height={"300px"} loading="lazy" onLoad={loadHandler} />
             </div>
             
         )
@@ -87,7 +99,22 @@ export default function imageComponent(props: any){
         <div className={blur} onMouseEnter={hooverHandler} onMouseLeave={leaveHandler} >
             
             
-        {blur === "hoover" ? <div><div className="imageInfo" onClick={displayPhoto}><h4>{props.imageName}</h4> <p>{props.author}</p></div>  <button onClick={savePhoto}>Save</button></div> : null} 
+        {blur === "hoover" ? 
+        <div onClick={displayPhoto}>
+            <div className="imageInfo" >
+                <h4>{props.imageName}</h4>
+                
+            </div>
+            
+            <div className="authorNameContainer" > 
+                <div className="line"></div> 
+                <p className="authorName">{props.author}</p>
+            
+                <button onClick={savePhoto}>Save</button>      
+            </div>  
+        </div>
+        : null
+    } 
         <img key={props.id} className={loading} src={props.src.large} height={"300px"} loading="lazy" onLoad={loadHandler} />
         </div>
         

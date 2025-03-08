@@ -14,16 +14,17 @@ export default function LightBox() {
        
     }
 
-    console.log(context.pictureURL)
+    
 
     useEffect(() => {
 
-        let handler = (event: any) => {
+        let handler = (event: MouseEvent) => {
             
             if (lightBoxRef.current === event.target) {
                 display(false)
             }
         }
+        
         
         document.addEventListener("mousedown", handler)
 

@@ -12,10 +12,11 @@ export default function SavedPhotos() {
     const setShow = context.setShowSaved
     let lightBoxRef = useRef(null)
 
-    const listItems = savedPhotos.map((item) => {
+    const listItems = savedPhotos.map((item, index) => {
+
         
         return (
-        <ImageComponent type="saved" src={item}></ImageComponent>
+        <ImageComponent key={index}type="saved" src={item}></ImageComponent>
     )
     });
 

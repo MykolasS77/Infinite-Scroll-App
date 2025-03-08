@@ -9,27 +9,35 @@ body{
 
 header{ 
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     position: sticky;
     top: 0;
     padding: 10px 16px;
     background: #d8d8d8;
     color: #f1f1f1;
     z-index: 1010;
+
     
 }
 
+header h1{
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.712);
+}
+
+.iconContainer{
+    height: 3vh;
+}
+
+
 .items-number{
     background-color: red;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
-    margin-top: 40px;
-    transform: translateX(30px);
-    
+    border-radius: 50%;
+    transform: translate(0px, -30px);
 }
 
 .pictures img{
@@ -57,33 +65,56 @@ header{
     transform: translate(35px, 20px);
     text-align: center; 
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.856);
-    vertical-align: middle;
     
 }
 
-.imageInfo p{
-    font-style: italic;
+.authorNameContainer{
+    height: 200px;
+    width: 250px;
+    position: absolute;
+    transform: translate(35px, 20px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    
 }
 
+
+.line{
+    width: 120px;
+    height: 3px;
+    background-color: rgb(255, 255, 255);
+    transform: translate(0px, 100px);
+    margin: 0;
+}
+
+
+.authorName{
+    position: absolute;
+    font-style: italic;
+    transform: translate(0px, 100px);
+    z-index: 1000;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.856);
+
+}
 
 
 .hoover button{
    
     position: absolute;
-    transform: translate(83px, 160px);
+    transform: translate(0px, 140px);
     z-index: 1000;
     font-size: large;
     width: 150px;
     height: 40px;
-    background-color: #ffffff00; /* Green */
+    background-color: #ffffff00; 
     border: solid 2px;
     border-radius: 20px;
     color: white;
     text-align: center;
     font-size: 16px;
     transition-duration: 0.4s;
-    
-
    
 }
 
@@ -180,6 +211,10 @@ button:hover {
         
       }
     
+    header h1{
+        font-size: 1.5rem;
+    }
+    
     .savedPhotos{
         display: inline-grid;
         grid-template-columns: auto ;
@@ -193,7 +228,7 @@ button:hover {
 
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 992px) {
 
     .pictures {
         display: inline-grid;
