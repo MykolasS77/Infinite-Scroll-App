@@ -12,12 +12,46 @@ export default function SavedPhotos() {
     const setShow = context.setShowSaved
     let lightBoxRef = useRef(null)
 
-    const listItems = savedPhotos.map((item, index) => {
+    const listItems = savedPhotos.map((item) => {
 
         
-        return (
-        <ImageComponent key={index}type="saved" src={item}></ImageComponent>
-    )
+         if(item.alt === ""){
+                const name = item.url.split("/photo")[1].split("-").slice(0,-1)
+                const nameString = name.join(' ').replace("/", "")
+                const formatedName = nameString.charAt(0).toUpperCase() + nameString.slice(1) + "."
+        
+                return (
+                  <ImageComponent
+                  type="saved"
+                  key={item.id} 
+                  id={item.id}
+                  author={item.photographer}
+                  imageName={formatedName}
+                  src={item.src}
+                  isLoading={false}
+                  wholeData={item}
+                  />
+              
+                )
+                
+                
+              }
+              else{
+        
+              return (
+              <ImageComponent
+              type="saved"
+              key={item.id} 
+              id={item.id}
+              author={item.photographer}
+              imageName={item.alt}
+              src={item.src}
+              isLoading={false}
+              wholeData={item}
+              />
+          
+            )
+        }
     });
 
     useEffect(() => {

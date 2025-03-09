@@ -1,12 +1,11 @@
-import "./App.css"
 import { createClient} from "pexels";
-import { useEffect, useState} from "react";
-import { Photos } from "pexels";
+import { useContext, useEffect, useState} from "react";
+import {SavedPhotosContext} from "./imageContext"
 import ImageComponent from "./imageComponent";
-import {SavedPhotosContextProvider} from "./imageContext"
 import Header from "./header";
 import LightBox from "./lightBoxComponent";
 import SavedPhotos from "./savedPhotos";
+import "./App.css"
 
 export default function App() {
   
@@ -14,7 +13,9 @@ export default function App() {
     "tIdg0aIl0BHqckWvn7Uw4OlxrtmPJOnRSvL71vmRTBicZ20QZtZhnkb1"
   );
 
-  const [data, setData] = useState<Photos["photos"] | []>([]);
+  const context = useContext(SavedPhotosContext)
+  const data = context.data
+  const setData = context.setData
   const [pageNumber, setPageNumber] = useState(1)
 
   const loadPhotos = () => {
@@ -26,14 +27,17 @@ export default function App() {
       }
       else{
         const responseArray = response.photos
+        
 
         if(data.length === 0) {
+        
           setData(responseArray)
+         
         }
         else{
           setData((prev) => [...prev, ...responseArray])
         }
-        
+      
       }
     });
 
@@ -71,6 +75,7 @@ export default function App() {
           imageName={formatedName}
           src={item.src}
           isLoading={false}
+          wholeData={item}
           />
       
         )
@@ -87,6 +92,7 @@ export default function App() {
       imageName={item.alt}
       src={item.src}
       isLoading={false}
+      wholeData={item}
       />
   
     )
@@ -94,7 +100,7 @@ export default function App() {
     });
 
     return (
-      <SavedPhotosContextProvider>
+      <>
       <LightBox/>
       <SavedPhotos></SavedPhotos>
       <Header/>
@@ -103,7 +109,8 @@ export default function App() {
           {listItems}
         </div>
       </div>
-      </SavedPhotosContextProvider>
+      </>
+     
     );
   }
 }

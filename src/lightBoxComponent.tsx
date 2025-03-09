@@ -5,16 +5,14 @@ import {SavedPhotosContext} from "./imageContext"
 
 export default function LightBox() {
     const context = useContext(SavedPhotosContext)
+    const [loading, setLoading] = useState("loading")
     const display = context.setShowPicture
     let lightBoxRef = useRef(null)
-    const [loading, setLoading] = useState("loading")
+
     const loadHandler = () => {
         setLoading("fade-in")
         
-       
     }
-
-    
 
     useEffect(() => {
 

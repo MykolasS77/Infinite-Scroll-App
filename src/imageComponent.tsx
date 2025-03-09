@@ -4,7 +4,7 @@ import { useContext } from "react"
 import {SavedPhotosContext} from "./imageContext"
 
 
-export default function imageComponent(props: any){
+export default function imageComponent(props: any){ //padaryt interface
 
     const [loading, setLoading] = useState("loading")
     const [blur, setBlur] = useState("")
@@ -16,6 +16,7 @@ export default function imageComponent(props: any){
     const displayOn = context.setShowPicture
     const setShowSaved = context.setShowSaved
 
+    
     
     const loadHandler = () => {
         setLoading("fade-in")
@@ -35,11 +36,12 @@ export default function imageComponent(props: any){
     const savePhoto = () => {
 
         if(items.length === 0) {
-            setItems([props.src])
+            setItems([props.wholeData])
+            window.localStorage.setItem("saved_photos", JSON.stringify([props.wholeData]))
             
           }
           else{
-            const newArray = [...items, props.src]
+            const newArray = [...items, props.wholeData]
             const filteredArray = [...new Set(newArray)];
             window.localStorage.setItem("saved_photos", JSON.stringify(filteredArray))
             setItems(filteredArray)
@@ -60,37 +62,44 @@ export default function imageComponent(props: any){
         if(props.type === "saved"){
             setShowSaved((prevState) => !prevState)
         }
-
+        
         setPictureURL(props.src.original) 
         displayOn((prevState) => !prevState)
 
     }
 
     const deletePhoto = () => {
-        const newList = items.filter(a => a !== props.src)
+        
+        const newList = items.filter(a => a !== props.wholeData) 
         setItems(newList);
         window.localStorage.setItem("saved_photos", JSON.stringify(newList))
         
     }
-
-    
     
     if (props.type === "saved"){
         
         return(
             <div className={blur} onMouseEnter={hooverHandler} onMouseLeave={leaveHandler} >
+            
+            
+        {blur === "hoover" ? 
+        <div onClick={displayPhoto}>
+            <div className="imageInfo" >
+                <h4>{props.imageName}</h4>
                 
-                
-            {blur === "hoover" ? 
-            <div onClick={displayPhoto}>  
-                <div className="authorNameContainer" >
-                    <button onClick={deletePhoto}>Delete</button>      
-                </div>  
             </div>
-            : null
-        } 
-            <img className={loading} src={props.src.large} height={"300px"} loading="lazy" onLoad={loadHandler} />
-            </div>
+            
+            <div className="authorNameContainer" > 
+                <div className="line"></div> 
+                <p className="authorName">{props.author}</p>
+            
+                <button onClick={deletePhoto}>Delete</button>      
+            </div>  
+        </div>
+        : null
+    } 
+        <img key={props.id} className={loading} src={props.src.large} height={"300px"} loading="lazy" onLoad={loadHandler} />
+        </div>
             
         )
     }

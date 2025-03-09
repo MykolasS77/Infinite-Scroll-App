@@ -1,8 +1,11 @@
 import { createContext, useState } from 'react';
+import { Photos } from "pexels";
 
 type SavedPhotosContextType = {
-    savedPhotos: string[] | [],
-    setSavedPhotos:  React.Dispatch<React.SetStateAction<string[]>>
+    data: Photos["photos"] | [],
+    setData: React.Dispatch<React.SetStateAction<Photos["photos"]>>,
+    savedPhotos: Photos["photos"] | [],
+    setSavedPhotos:  React.Dispatch<React.SetStateAction<Photos["photos"]>>
     pictureURL: string,
     setPictureURL:  React.Dispatch<React.SetStateAction<string>>
     showPicture: boolean,
@@ -15,6 +18,8 @@ type SavedPhotosContextType = {
 
 const SavedPhotosContext = createContext<SavedPhotosContextType>(
     {
+        data: [],
+        setData: () => {},
         savedPhotos: [],
         setSavedPhotos: () => {},
         pictureURL: "",
@@ -29,10 +34,10 @@ const SavedPhotosContext = createContext<SavedPhotosContextType>(
 
 
 const SavedPhotosContextProvider = (props: { children: React.ReactNode }) => {
-
-
-    const data = JSON.parse(window.localStorage.getItem("saved_photos") || "[]")
-    const [savedPhotos, setSavedPhotos] = useState<string[]>(data);
+    
+    const [data, setData] = useState<Photos["photos"] | []>([]);
+    const saved = JSON.parse(window.localStorage.getItem("saved_photos") || "[]")
+    const [savedPhotos, setSavedPhotos] = useState<Photos["photos"] >(saved);
     const [pictureURL, setPictureURL] = useState("empty")
     const [showPicture, setShowPicture] = useState(false)
     const [showSaved, setShowSaved] = useState(false)
@@ -40,7 +45,7 @@ const SavedPhotosContextProvider = (props: { children: React.ReactNode }) => {
     
 
     return(
-        <SavedPhotosContext.Provider value={{savedPhotos, setSavedPhotos, pictureURL, setPictureURL, showPicture, setShowPicture, showSaved, setShowSaved}}>
+        <SavedPhotosContext.Provider value={{data, setData, savedPhotos, setSavedPhotos, pictureURL, setPictureURL, showPicture, setShowPicture, showSaved, setShowSaved}}>
             {props.children}
         </SavedPhotosContext.Provider>
     )
