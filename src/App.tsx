@@ -26,16 +26,11 @@ export default function App() {
 
 
     const responseArray = imageRequest.photos
-    console.log(link)
-
     if(data.length === 0) {
-      
-      console.log("request", "data 0", link)
       setData(responseArray)
     
     }
     else{
-      console.log("request")
       setData((prev) => [...prev, ...responseArray])
   }
  
