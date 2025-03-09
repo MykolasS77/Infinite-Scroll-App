@@ -1,4 +1,3 @@
-import { createClient} from "pexels";
 import { useContext, useEffect, useState} from "react";
 import {SavedPhotosContext} from "./imageContext"
 import ImageComponent from "./imageComponent";
@@ -8,53 +7,64 @@ import SavedPhotos from "./savedPhotos";
 import "./App.css"
 
 export default function App() {
-  
-  const client = createClient(
-    "tIdg0aIl0BHqckWvn7Uw4OlxrtmPJOnRSvL71vmRTBicZ20QZtZhnkb1"
-  );
-
   const context = useContext(SavedPhotosContext)
   const data = context.data
   const setData = context.setData
-  const [pageNumber, setPageNumber] = useState(1)
+  const [pageNumber, setPageNumber] = useState(1) 
 
-  const loadPhotos = () => {
 
-    client.photos.curated({ page: pageNumber, per_page: 80 }).then((response) => {
+  async function fetchPhotos(link: string){
+  
+    const imageRequest = await fetch(
+      link,
+      {
+        headers: {
+          Authorization: "tIdg0aIl0BHqckWvn7Uw4OlxrtmPJOnRSvL71vmRTBicZ20QZtZhnkb1",
+        },
+      },
+    ).then((response) => response.json());
 
-      if("error" in response){
-        console.log(response.error)
-      }
-      else{
-        const responseArray = response.photos
-        
 
-        if(data.length === 0) {
-        
-          setData(responseArray)
-         
-        }
-        else{
-          setData((prev) => [...prev, ...responseArray])
-        }
+    const responseArray = imageRequest.photos
+    console.log(link)
+
+    if(data.length === 0) {
       
-      }
-    });
-
+      console.log("request", "data 0", link)
+      setData(responseArray)
+    
+    }
+    else{
+      console.log("request")
+      setData((prev) => [...prev, ...responseArray])
+  }
+ 
   }
 
-  useEffect(() => {
-    loadPhotos()
 
-    addEventListener("scroll", () => {
-    
-      if(document.documentElement.scrollTop + 1 + window.innerHeight > document.documentElement.scrollHeight){ 
-            setPageNumber((prev) => {
-            return prev + 1
-          })
-             
-      };
-    });
+  useEffect(() => {
+ 
+    const scrollCheck = ()=> {
+      if(document.documentElement.scrollTop + 1 + window.innerHeight > document.documentElement.scrollHeight){
+            
+        setPageNumber((prev) => {
+        return prev + 1
+      })
+ 
+  };
+    }
+
+    window.addEventListener("scroll",scrollCheck)
+
+    return () => {
+      window.removeEventListener("scroll", scrollCheck); 
+    };
+ 
+  }, []);
+
+  useEffect(() => {
+ 
+    fetchPhotos(`https://api.pexels.com/v1/curated/?page=${pageNumber}&per_page=80`)
     
   }, [pageNumber]);
   
