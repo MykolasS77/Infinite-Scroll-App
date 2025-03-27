@@ -233,14 +233,14 @@ button:hover {
 
     .pictures {
         display: inline-grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: auto;
         
         
       }
     
     .savedPhotos{
         display: inline-grid;
-        grid-template-columns: auto auto ;
+        grid-template-columns: auto;
         
       
     }
