@@ -1,0 +1,35 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  padding: 10px 16px;
+  background: #d8d8d8;
+  color: #f1f1f1;
+  z-index: 1010;
+}
+
+header h1 {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.712);
+}
+
+.iconContainer {
+  height: 3vh;
+}
+
+.savedItemsNumber {
+  background-color: red;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transform: translate(0px, -30px);
+}
+
+@media only screen and (max-width: 600px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+}

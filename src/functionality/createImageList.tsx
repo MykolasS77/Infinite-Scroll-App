@@ -1,6 +1,5 @@
-import "./App.css";
 import { Photo } from "pexels";
-import ImageComponent from "./imageComponent";
+import ImageComponent from "../components/imageComponent";
 import formatPictureNameFromURL from "./formatPictureNameFromURL";
 
 export default function createImageList(dataFromAPI: Photo[], type?: string) {

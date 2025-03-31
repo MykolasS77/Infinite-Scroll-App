@@ -1,7 +1,7 @@
-import "./App.css";
+import savedPhotosStyles from "../styling/savedPhotos.module.css";
 import { useContext, useEffect, useRef } from "react";
-import { SavedPhotosContext } from "./imageContext";
-import createImageList from "./createImageList";
+import { SavedPhotosContext } from "../functionality/context/imageContext";
+import createImageList from "../functionality/createImageList";
 
 export default function SavedPhotos() {
   const context = useContext(SavedPhotosContext);
@@ -28,8 +28,11 @@ export default function SavedPhotos() {
 
   if (show === true) {
     return (
-      <div className="container lightbox" ref={lightBoxRef}>
-        <div className="savedPhotos">{listItems}</div>
+      <div
+        className={`${savedPhotosStyles.container} ${savedPhotosStyles.lightbox}`}
+        ref={lightBoxRef}
+      >
+        <div className={savedPhotosStyles.savedPhotos}>{listItems}</div>
       </div>
     );
   }

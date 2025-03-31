@@ -1,0 +1,62 @@
+.imageInfo {
+  height: 200px;
+  width: 250px;
+  position: absolute;
+  z-index: 1000;
+  color: white;
+  transform: translate(35px, 20px);
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.856);
+}
+
+.authorNameContainer {
+  height: 200px;
+  width: 250px;
+  position: absolute;
+  transform: translate(35px, 20px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+}
+
+.line {
+  width: 120px;
+  height: 3px;
+  background-color: rgb(255, 255, 255);
+  transform: translate(0px, 100px);
+  margin: 0;
+}
+
+.authorName {
+  position: absolute;
+  font-style: italic;
+  transform: translate(0px, 100px);
+  z-index: 1000;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.856);
+}
+
+.hoover button {
+  position: absolute;
+  transform: translate(0px, 140px);
+  z-index: 1000;
+  font-size: large;
+  width: 150px;
+  height: 40px;
+  background-color: #ffffff00;
+  border: solid 2px;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: #978c8c80;
+  color: white;
+}
+
+.hoover img {
+  filter: blur(3px);
+}

@@ -1,4 +1,3 @@
-import "./App.css";
 import { Photo } from "pexels";
 
 export default function formatPictureNameFromURL(item: Photo) {

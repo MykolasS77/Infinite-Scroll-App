@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { SavedPhotosContext } from "./imageContext";
-import Header from "./header";
-import LightBox from "./lightBoxComponent";
-import SavedPhotos from "./savedPhotos";
-import createImageList from "./createImageList";
-import "./App.css";
+import { SavedPhotosContext } from "./functionality/context/imageContext";
+import Header from "./components/header";
+import LightBox from "./components/lightBoxComponent";
+import SavedPhotos from "./components/savedPhotos";
+import createImageList from "./functionality/createImageList";
+import picturesGrid from "./styling/picturesGrid.module.css";
 
 export default function App() {
   const context = useContext(SavedPhotosContext);
@@ -27,7 +27,6 @@ export default function App() {
       setDataFromAPI((prev) => {
         const unsortedArray = [...prev, ...responseArray];
         const sortedArray = unsortedArray.filter(
-          //removes duplicate pictures
           (element, index, arr) =>
             arr.findIndex(
               (item) => JSON.stringify(item) === JSON.stringify(element)
@@ -72,8 +71,8 @@ export default function App() {
       <LightBox />
       <SavedPhotos />
       <Header />
-      <div className="container">
-        <div className="pictures">{listItems}</div>
+      <div className={picturesGrid.container}>
+        <div className={picturesGrid.pictures}>{listItems}</div>
       </div>
     </>
   );

@@ -1,11 +1,10 @@
 import { useState } from "react";
-import "./App.css";
+import imageStyles from "../styling/imageComponent.module.css";
+import displayEffectStyles from "../styling/onDisplayEffects.module.css";
 import { useContext } from "react";
-import { SavedPhotosContext } from "./imageContext";
+import { SavedPhotosContext } from "../functionality/context/imageContext";
 
-export default function imageComponent(props: any) {
-  //padaryt interface
-
+export default function ImageComponent(props: any) {
   const [loading, setLoading] = useState("loading");
   const [blur, setBlur] = useState("");
 
@@ -17,11 +16,11 @@ export default function imageComponent(props: any) {
   const setShowSaved = context.setShowSaved;
 
   const loadHandler = () => {
-    setLoading("fade-in");
+    setLoading(displayEffectStyles.fadeIn);
   };
 
   const hooverHandler = () => {
-    setBlur("hoover");
+    setBlur(imageStyles.hoover);
   };
 
   const leaveHandler = () => {
@@ -29,21 +28,10 @@ export default function imageComponent(props: any) {
   };
 
   const savePhoto = () => {
-    if (items.length === 0) {
-      setItems([props.wholeData]);
-      window.localStorage.setItem(
-        "saved_photos",
-        JSON.stringify([props.wholeData])
-      );
-    } else {
-      const newArray = [...items, props.wholeData];
-      const filteredArray = [...new Set(newArray)];
-      window.localStorage.setItem(
-        "saved_photos",
-        JSON.stringify(filteredArray)
-      );
-      setItems(filteredArray);
-    }
+    const newArray = [...items, props.wholeData];
+    const filteredArray = [...new Set(newArray)];
+    window.localStorage.setItem("saved_photos", JSON.stringify(filteredArray));
+    setItems(filteredArray);
   };
 
   const displayPhoto = (event: React.MouseEvent) => {
@@ -79,15 +67,15 @@ export default function imageComponent(props: any) {
         onMouseEnter={hooverHandler}
         onMouseLeave={leaveHandler}
       >
-        {blur === "hoover" ? (
+        {blur === imageStyles.hoover ? (
           <div onClick={displayPhoto}>
-            <div className="imageInfo">
+            <div className={imageStyles.imageInfo}>
               <h4>{props.imageName}</h4>
             </div>
 
-            <div className="authorNameContainer">
-              <div className="line"></div>
-              <p className="authorName">{props.author}</p>
+            <div className={imageStyles.authorNameContainer}>
+              <div className={imageStyles.line}></div>
+              <p className={imageStyles.authorName}>{props.author}</p>
 
               <button onClick={buttonClickFunction}>{buttonText}</button>
             </div>
