@@ -15,17 +15,9 @@ export default function ImageComponent(props: any) {
   const displayOn = context.setShowPicture;
   const setShowSaved = context.setShowSaved;
 
-  const loadHandler = () => {
-    setLoading(displayEffectStyles.fadeIn);
-  };
-
-  const hooverHandler = () => {
-    setBlur(imageStyles.hoover);
-  };
-
-  const leaveHandler = () => {
-    setBlur("");
-  };
+  const loadHandler = () => setLoading(displayEffectStyles.fadeIn);
+  const hooverHandler = () => setBlur(imageStyles.hoover);
+  const leaveHandler = () => setBlur("");
 
   const savePhoto = () => {
     const newArray = [...items, props.wholeData];
@@ -43,7 +35,7 @@ export default function ImageComponent(props: any) {
 
     leaveHandler();
 
-    if (props.type === "saved") {
+    if (props.saved === true) {
       setShowSaved((prevState) => !prevState);
     }
 
@@ -57,45 +49,36 @@ export default function ImageComponent(props: any) {
     window.localStorage.setItem("saved_photos", JSON.stringify(newList));
   };
 
-  const returnImageComponent = (
-    buttonText: string,
-    buttonClickFunction: () => void
-  ) => {
-    return (
-      <div
-        className={blur}
-        onMouseEnter={hooverHandler}
-        onMouseLeave={leaveHandler}
-      >
-        {blur === imageStyles.hoover ? (
-          <div onClick={displayPhoto}>
-            <div className={imageStyles.imageInfo}>
-              <h4>{props.imageName}</h4>
-            </div>
-
-            <div className={imageStyles.authorNameContainer}>
-              <div className={imageStyles.line}></div>
-              <p className={imageStyles.authorName}>{props.author}</p>
-
-              <button onClick={buttonClickFunction}>{buttonText}</button>
-            </div>
+  return (
+    <div
+      className={blur}
+      onMouseEnter={hooverHandler}
+      onMouseLeave={leaveHandler}
+    >
+      {blur === imageStyles.hoover ? (
+        <div onClick={displayPhoto}>
+          <div className={imageStyles.imageInfo}>
+            <h4>{props.imageName}</h4>
           </div>
-        ) : null}
-        <img
-          key={props.id}
-          className={loading}
-          src={props.src.large}
-          height={"300px"}
-          loading="lazy"
-          onLoad={loadHandler}
-        />
-      </div>
-    );
-  };
 
-  if (props.type === "saved") {
-    return returnImageComponent("Delete", deletePhoto);
-  } else {
-    return returnImageComponent("Save", savePhoto);
-  }
+          <div className={imageStyles.authorNameContainer}>
+            <div className={imageStyles.line}></div>
+            <p className={imageStyles.authorName}>{props.author}</p>
+
+            <button onClick={props.saved == true ? deletePhoto : savePhoto}>
+              {props.saved == true ? "Delete" : "Save"}
+            </button>
+          </div>
+        </div>
+      ) : null}
+      <img
+        key={props.id}
+        className={props.saved == true ? "" : loading}
+        src={props.src.large}
+        height={"300px"}
+        loading="lazy"
+        onLoad={loadHandler}
+      />
+    </div>
+  );
 }

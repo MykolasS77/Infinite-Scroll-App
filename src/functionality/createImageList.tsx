@@ -1,8 +1,11 @@
 import { Photo } from "pexels";
-import ImageComponent from "../components/imageComponent";
+import ImageComponent from "../components/ImageComponent";
 import formatPictureNameFromURL from "./formatPictureNameFromURL";
 
-export default function createImageList(dataFromAPI: Photo[], type?: string) {
+export default function createImageList(
+  dataFromAPI: Photo[],
+  savedImages: boolean
+) {
   const listItems = dataFromAPI.map((item: any) => {
     let pictureName = item.alt;
     if (pictureName === "") {
@@ -17,7 +20,7 @@ export default function createImageList(dataFromAPI: Photo[], type?: string) {
         src={item.src}
         isLoading={false}
         wholeData={item}
-        type={type}
+        saved={savedImages}
       />
     );
   });

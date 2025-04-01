@@ -10,7 +10,7 @@ export default function SavedPhotos() {
   const setShow = context.setShowSaved;
   let lightBoxRef = useRef(null);
 
-  const listItems = createImageList(savedPhotos, "saved");
+  const listItems = createImageList(savedPhotos, true);
 
   useEffect(() => {
     let handler = (event: MouseEvent) => {

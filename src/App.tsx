@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { SavedPhotosContext } from "./functionality/context/imageContext";
-import Header from "./components/header";
-import LightBox from "./components/lightBoxComponent";
-import SavedPhotos from "./components/savedPhotos";
+import Header from "./components/Header";
+import LightBox from "./components/LightBoxComponent";
+import SavedPhotos from "./components/SavedPhotos";
 import createImageList from "./functionality/createImageList";
 import picturesGrid from "./styling/picturesGrid.module.css";
 
@@ -12,13 +12,13 @@ export default function App() {
   const setDataFromAPI = context.setData;
   const [pageNumber, setPageNumber] = useState(1);
   const linkToAPI = `https://api.pexels.com/v1/curated/?page=${pageNumber}&per_page=80`;
+  const API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
 
   const fetchPhotos = async (link: string) => {
     try {
       const imageRequest = await fetch(link, {
         headers: {
-          Authorization:
-            "tIdg0aIl0BHqckWvn7Uw4OlxrtmPJOnRSvL71vmRTBicZ20QZtZhnkb1",
+          Authorization: API_KEY,
         },
       });
       const response = await imageRequest.json();
@@ -64,7 +64,7 @@ export default function App() {
     };
   }, []);
 
-  const listItems = createImageList(dataFromAPI);
+  const listItems = createImageList(dataFromAPI, false);
 
   return (
     <>
