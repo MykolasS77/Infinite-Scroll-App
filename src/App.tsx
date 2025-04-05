@@ -46,6 +46,17 @@ export default function App() {
 
   useEffect(() => {
     const loadPicturesOnBottom = () => {
+      console.log("scroll top", document.documentElement.scrollTop);
+      console.log("client height", document.documentElement.clientHeight);
+      console.log(
+        "scroll top + client height",
+        document.documentElement.scrollTop +
+          document.documentElement.clientHeight
+      );
+      console.log(
+        "scroll height (target)",
+        document.documentElement.scrollHeight - 20
+      );
       if (
         document.documentElement.scrollTop +
           document.documentElement.clientHeight >=
