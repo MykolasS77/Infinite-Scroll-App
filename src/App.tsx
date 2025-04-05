@@ -47,9 +47,8 @@ export default function App() {
   useEffect(() => {
     const loadPicturesOnBottom = () => {
       if (
-        document.documentElement.scrollTop +
-          document.documentElement.clientHeight >=
-        document.documentElement.scrollHeight - 50
+        window.scrollY + window.innerHeight >=
+        document.body.scrollHeight - 300
       ) {
         setPageNumber((prev) => {
           return prev + 1;
