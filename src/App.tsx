@@ -46,21 +46,10 @@ export default function App() {
 
   useEffect(() => {
     const loadPicturesOnBottom = () => {
-      console.log("scroll top", document.documentElement.scrollTop);
-      console.log("client height", document.documentElement.clientHeight);
-      console.log(
-        "scroll top + client height",
-        document.documentElement.scrollTop +
-          document.documentElement.clientHeight
-      );
-      console.log(
-        "scroll height (target)",
-        document.documentElement.scrollHeight - 20
-      );
       if (
         document.documentElement.scrollTop +
           document.documentElement.clientHeight >=
-        document.documentElement.scrollHeight - 20
+        document.documentElement.scrollHeight - 50
       ) {
         setPageNumber((prev) => {
           return prev + 1;
